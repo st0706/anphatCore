@@ -127,16 +127,15 @@ export const updateTeam = async (slug: string, data: Partial<Team>) => {
       data: data
     });
   } catch (e) {
-    if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      // The .code property can be accessed in a type-safe manner
-      if (e.code === "P2002") {
-        const match = e.message.match(/:\s*\(`(.*)`\)/);
-        if (match) {
-          e.message = `Trường sau đây đã tồn tại : ${
-            match[1] === "slug" ? "Đường dẫn" : "Tên miền"
-          }.\nVui lòng kiểm tra lại !`;
-          throw e;
-        }
+    const knownError = e as Prisma.PrismaClientKnownRequestError;
+    // The .code property can be accessed in a type-safe manner
+    if (knownError.code === "P2002") {
+      const match = knownError.message.match(/:\s*\(`(.*)`\)/);
+      if (match) {
+        knownError.message = `Trường sau đây đã tồn tại : ${
+          match[1] === "slug" ? "Đường dẫn" : "Tên miền"
+        }.\nVui lòng kiểm tra lại !`;
+        throw e;
       }
     }
     throw e;
