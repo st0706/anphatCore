@@ -130,15 +130,15 @@ export const patientsRouter = createTRPCRouter({
           }
         })
         .catch((e) => {
-          if (e instanceof Prisma.PrismaClientKnownRequestError) {
-            if (e.code === "P2002") {
-              const match = e.message.match(/:\s*\(`(.*)`\)/);
-              if (match) {
-                e.message = ` ${match[1] === "patientId" ? "Mã bệnh nhân" : ""} đã tồn tại`;
-                throw e;
-              }
-            }
-          }
+          // if (e instanceof Prisma.PrismaClientKnownRequestError) {
+          //   if (e.code === "P2002") {
+          //     const match = e.message.match(/:\s*\(`(.*)`\)/);
+          //     if (match) {
+          //       e.message = ` ${match[1] === "patientId" ? "Mã bệnh nhân" : ""} đã tồn tại`;
+          //       throw e;
+          //     }
+          //   }
+          // }
           throw e;
         });
     }),

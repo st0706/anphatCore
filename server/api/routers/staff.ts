@@ -216,18 +216,18 @@ export const staffRouter = createTRPCRouter({
           })
         ])
         .catch((err) => {
-          if (err instanceof Prisma.PrismaClientKnownRequestError) {
-            // The .code property can be accessed in a type-safe manner
-            if (err.code === "P2002") {
-              const match = err.message.match(/:\s*\(`(.*)`\)/);
-              if (match) {
-                err.message = ` ${
-                  match[1] === "staffID" ? "Nhân sự" : match[1] === "CID" ? "Số CCCD" : "Email"
-                } đã tồn tại!`;
-                throw err;
-              }
-            }
-          }
+          // if (err instanceof Prisma.PrismaClientKnownRequestError) {
+          //   // The .code property can be accessed in a type-safe manner
+          //   if (err.code === "P2002") {
+          //     const match = err.message.match(/:\s*\(`(.*)`\)/);
+          //     if (match) {
+          //       err.message = ` ${
+          //         match[1] === "staffID" ? "Nhân sự" : match[1] === "CID" ? "Số CCCD" : "Email"
+          //       } đã tồn tại!`;
+          //       throw err;
+          //     }
+          //   }
+          // }
           throw err;
         });
     }),
@@ -300,18 +300,18 @@ export const staffRouter = createTRPCRouter({
           }
         })
         .catch((err) => {
-          if (err instanceof Prisma.PrismaClientKnownRequestError) {
-            // The .code property can be accessed in a type-safe manner
-            if (err.code === "P2002") {
-              const match = err.message.match(/:\s*\(`(.*)`\)/);
-              if (match) {
-                err.message = ` ${
-                  match[1] === "staffID" ? "Mã nhân sự" : match[1] === "CID" ? "Số CCCD" : "Email"
-                } đã tồn tại!`;
-                throw err;
-              }
-            }
-          }
+          // if (err instanceof Prisma.PrismaClientKnownRequestError) {
+          //   // The .code property can be accessed in a type-safe manner
+          //   if (err.code === "P2002") {
+          //     const match = err.message.match(/:\s*\(`(.*)`\)/);
+          //     if (match) {
+          //       err.message = ` ${
+          //         match[1] === "staffID" ? "Mã nhân sự" : match[1] === "CID" ? "Số CCCD" : "Email"
+          //       } đã tồn tại!`;
+          //       throw err;
+          //     }
+          //   }
+          // }
           throw err;
         });
 

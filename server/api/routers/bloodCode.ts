@@ -151,16 +151,16 @@ export const bloodCodeRouter = createTRPCRouter({
           }
         })
         .catch((e) => {
-          if (e instanceof Prisma.PrismaClientKnownRequestError) {
-            // The .code property can be accessed in a type-safe manner
-            if (e.code === "P2002") {
-              const match = e.message.match(/:\s*\(`(.*)`\)/);
-              if (match) {
-                e.message = ` ${match[1] === "bloodCode" ? "Mã máu" : ""} đã tồn tại`;
-                throw e;
-              }
-            }
-          }
+          // if (e instanceof Prisma.PrismaClientKnownRequestError) {
+          //   // The .code property can be accessed in a type-safe manner
+          //   if (e.code === "P2002") {
+          //     const match = e.message.match(/:\s*\(`(.*)`\)/);
+          //     if (match) {
+          //       e.message = ` ${match[1] === "bloodCode" ? "Mã máu" : ""} đã tồn tại`;
+          //       throw e;
+          //     }
+          //   }
+          // }
           throw e;
         });
     }),
