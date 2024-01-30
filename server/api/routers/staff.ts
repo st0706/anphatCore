@@ -215,20 +215,17 @@ export const staffRouter = createTRPCRouter({
             }
           })
         ])
-        .catch((err) => {
-          // if (err instanceof Prisma.PrismaClientKnownRequestError) {
-          //   // The .code property can be accessed in a type-safe manner
-          //   if (err.code === "P2002") {
-          //     const match = err.message.match(/:\s*\(`(.*)`\)/);
-          //     if (match) {
-          //       err.message = ` ${
-          //         match[1] === "staffID" ? "Nhân sự" : match[1] === "CID" ? "Số CCCD" : "Email"
-          //       } đã tồn tại!`;
-          //       throw err;
-          //     }
-          //   }
-          // }
-          throw err;
+        .catch((e) => {
+          const knownError = e as Prisma.PrismaClientKnownRequestError;
+          // The .code property can be accessed in a type-safe manner
+          if (knownError.code === "P2002") {
+            const match = knownError.message.match(/:\s*\(`(.*)`\)/);
+            if (match) {
+              knownError.message = ` match[1] === "staffID" ? "Nhân sự" : match[1] === "CID" ? "Số CCCD" : "Email`;
+              throw e;
+            }
+          }
+          throw e;
         });
     }),
   getAll: protectedProcedure.query(async ({ ctx }) => {
@@ -299,20 +296,19 @@ export const staffRouter = createTRPCRouter({
             organizationName: organizationNameById
           }
         })
-        .catch((err) => {
-          // if (err instanceof Prisma.PrismaClientKnownRequestError) {
-          //   // The .code property can be accessed in a type-safe manner
-          //   if (err.code === "P2002") {
-          //     const match = err.message.match(/:\s*\(`(.*)`\)/);
-          //     if (match) {
-          //       err.message = ` ${
-          //         match[1] === "staffID" ? "Mã nhân sự" : match[1] === "CID" ? "Số CCCD" : "Email"
-          //       } đã tồn tại!`;
-          //       throw err;
-          //     }
-          //   }
-          // }
-          throw err;
+        .catch((e) => {
+          const knownError = e as Prisma.PrismaClientKnownRequestError;
+          // The .code property can be accessed in a type-safe manner
+          if (knownError.code === "P2002") {
+            const match = knownError.message.match(/:\s*\(`(.*)`\)/);
+            if (match) {
+              knownError.message = ` ${
+                match[1] === "staffID" ? "Mã nhân sự" : match[1] === "CID" ? "Số CCCD" : "Email"
+              } đã tồn tại!`;
+              throw e;
+            }
+          }
+          throw e;
         });
 
       await ctx.db.organizationToStaff.updateMany({
