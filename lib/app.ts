@@ -7,8 +7,8 @@ const app = {
   location: "Hanoi, Vietnam",
   // logoUrl: "https://dev.pacs.store/logo.png",
   // url: "https://dev.pacs.store/"
-  logoUrl: "https://anphat-core.vercel.app/logo.png",
-  url: "https://anphat-core.vercel.app/"
+  logoUrl: "https://anphatcore.vercel.app/logo.png",
+  url: "https://anphatcore.vercel.app/"
 };
 
 export default app;
