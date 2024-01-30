@@ -51,7 +51,7 @@ export default function StaffForm(props: IStaffFormProps) {
     slug: teamSlug.toString()
   });
 
-  const form = useForm<StaffModel>({
+  const form = useForm<any>({
     initialValues: {
       otherName: "",
       engName: "",
@@ -61,7 +61,7 @@ export default function StaffForm(props: IStaffFormProps) {
       officalDojCPV: new Date(),
       addressPermanent: "",
       currentAddress: ""
-    } as StaffModel,
+    },
     validate: {
       staffID: isNotEmpty(required("mã nhân sự")),
       familyName: (value: string) =>
