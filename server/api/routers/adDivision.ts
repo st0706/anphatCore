@@ -186,7 +186,7 @@ export const adDivisionRouter = createTRPCRouter({
       if (importMethod !== "RESET") {
         await ctx.db.wards.findMany().then((res) => {
           const recordSet = new Set(res);
-          recordSet.forEach((row) => {
+          recordSet.forEach((row: any) => {
             citiesMap.set(`${row.cityId}`, row.cityName);
             districtsMap.set(`${row.districtId}`, row.districtName);
             districtsIdSet.add(row.districtId);
