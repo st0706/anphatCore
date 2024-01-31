@@ -22,14 +22,16 @@ interface TeamTabProps {
 const TeamTab = ({ activeTab, team, heading, teamFeatures }: TeamTabProps) => {
   const { canAccess } = useCanAccess();
 
-  const navigations = [
-    {
-      name: "Thiết lập",
-      href: `/teams/${team.slug}/settings`,
-      active: activeTab === "settings",
-      icon: IconSettings
-    }
-  ];
+  if (canAccess("team_member", ["create", "update", "read", "delete"])) {
+    const navigations = [
+      {
+        name: "Thiết lập",
+        href: `/teams/${team.slug}/settings`,
+        active: activeTab === "settings",
+        icon: IconSettings
+      }
+    ];
+  }
 
   if (canAccess("team_member", ["create", "update", "read", "delete"])) {
     navigations.push({
@@ -67,14 +69,12 @@ const TeamTab = ({ activeTab, team, heading, teamFeatures }: TeamTabProps) => {
     });
   }
 
-  if (canAccess("team_organizations", ["create", "update", "read", "delete"])) {
-    navigations.push({
-      name: "Đơn vị trực thuộc",
-      href: `/teams/${team.slug}/organizations`,
-      active: activeTab === "organizations",
-      icon: IconBinaryTree
-    });
-  }
+  navigations.push({
+    name: "Đơn vị trực thuộc",
+    href: `/teams/${team.slug}/organizations`,
+    active: activeTab === "organizations",
+    icon: IconBinaryTree
+  });
 
   if (canAccess("team_organizations", ["create", "update", "read", "delete"])) {
     navigations.push({
@@ -85,23 +85,19 @@ const TeamTab = ({ activeTab, team, heading, teamFeatures }: TeamTabProps) => {
     });
   }
 
-  if (canAccess("team_organizations", ["create", "update", "read", "delete"])) {
-    navigations.push({
-      name: "Bệnh nhân",
-      href: `/teams/${team.slug}/patients`,
-      active: activeTab === "patients",
-      icon: IconBinaryTree
-    });
-  }
+  navigations.push({
+    name: "Bệnh nhân",
+    href: `/teams/${team.slug}/patients`,
+    active: activeTab === "patients",
+    icon: IconBinaryTree
+  });
 
-  if (canAccess("team_organizations", ["create", "update", "read", "delete"])) {
-    navigations.push({
-      name: "Lịch khám",
-      href: `/teams/${team.slug}/schedule`,
-      active: activeTab === "schedule",
-      icon: IconBinaryTree
-    });
-  }
+  navigations.push({
+    name: "Lịch khám",
+    href: `/teams/${team.slug}/schedule`,
+    active: activeTab === "schedule",
+    icon: IconBinaryTree
+  });
 
   return (
     <div className="flex flex-col pb-6">
