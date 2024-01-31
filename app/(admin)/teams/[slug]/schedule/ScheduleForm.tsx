@@ -149,7 +149,7 @@ const ScheduleForm: FC<Props> = ({ data, isSubmiting, onSubmit, onClose, onDelet
         <FormActions
           isNew={!data || !data.id}
           isSubmitting={isSubmiting}
-          canSubmit={form.isDirty() && form.isValid()}
+          canSubmit={form.isValid()}
           onClose={() => (onClose ? onClose() : modals.closeAll())}
           onDelete={data ? () => handleDelete(data.id) : undefined}
         />
