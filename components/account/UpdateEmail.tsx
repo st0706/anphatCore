@@ -7,7 +7,6 @@ import { Button, Card, Group, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import type { User } from "@prisma/client";
 import { useState } from "react";
-import type { ApiResponse } from "types";
 
 const UpdateEmail = ({ user }: { user: User }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,11 +37,11 @@ const UpdateEmail = ({ user }: { user: User }) => {
       body: JSON.stringify(values)
     });
 
-    const json = (await response.json()) as ApiResponse<User>;
+    const json = await response.json();
     setIsSubmitting(false);
 
     if (!response.ok) {
-      notifyResult(Action.Update, "email", false, json.error.message);
+      notifyResult(Action.Update, "email", false, json.message);
       return;
     }
 

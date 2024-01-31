@@ -11,7 +11,6 @@ import useCanAccess from "hooks/useCanAccess";
 import useTeamMembers from "hooks/useTeamMembers";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import type { ApiResponse } from "types";
 import UpdateMemberRole from "./UpdateMemberRole";
 
 const Members = ({ team }: { team: Team }) => {
@@ -44,10 +43,10 @@ const Members = ({ team }: { team: Team }) => {
       headers: defaultHeaders
     });
 
-    const json = (await response.json()) as ApiResponse;
+    const json = await response.json();
 
     if (!response.ok) {
-      notifyResult(Action.Delete, "thành viên", false, json.error?.message);
+      notifyResult(Action.Delete, "thành viên", false, json.message);
       return;
     }
 

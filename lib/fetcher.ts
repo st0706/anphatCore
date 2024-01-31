@@ -3,7 +3,7 @@ const fetcher = async (url: string) => {
   const json = await response.json();
 
   if (!response.ok) {
-    throw new Error(json.error.message || "Đã xảy ra lỗi khi tìm nạp dữ liệu");
+    throw new Error(json.message || "Đã xảy ra lỗi khi tìm nạp dữ liệu");
   }
 
   return json;

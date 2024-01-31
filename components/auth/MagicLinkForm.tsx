@@ -27,14 +27,13 @@ const MagicLinkForm = () => {
   });
 
   const handleSubmit = async (values: { email: string | undefined }) => {
-    const csrfToken = getCsrfToken();
+    const csrfToken = await getCsrfToken();
     const response = await signIn("email", {
       email: values.email,
       csrfToken,
       redirect: false,
       callbackUrl: env.redirectIfAuthenticated
     });
-
     form.reset();
 
     if (response?.error) {
@@ -64,7 +63,6 @@ const MagicLinkForm = () => {
         type="email"
         label="Email"
         name="email"
-        placeholder="email@pacs.store"
         description="Chúng tôi sẽ gửi cho bạn một liên kết qua email để đăng nhập không cần mật khẩu."
         {...form.getInputProps("email")}
       />

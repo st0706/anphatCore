@@ -1,10 +1,9 @@
+import env from "@/lib/env";
+import { ApiError } from "@/lib/errors";
+import { recordMetric } from "@/lib/metrics";
 import { createApiKey, fetchApiKeys } from "models/apiKey";
 import { throwIfNoTeamAccess } from "models/team";
 import { throwIfNotAllowed } from "models/user";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { recordMetric } from "@/lib/metrics";
-import env from "@/lib/env";
-import { ApiError } from "@/lib/errors";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request, { params }) {

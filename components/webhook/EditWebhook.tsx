@@ -6,7 +6,7 @@ import useWebhook from "hooks/useWebhook";
 import useWebhooks from "hooks/useWebhooks";
 import { useState } from "react";
 import type { EndpointOut } from "svix";
-import type { ApiResponse, WebookFormSchema } from "types";
+import type { WebookFormSchema } from "types";
 import ModalForm from "./Form";
 
 const EditWebhook = ({
@@ -42,17 +42,16 @@ const EditWebhook = ({
       body: JSON.stringify(values)
     });
 
-    const json = (await response.json()) as ApiResponse;
+    const json = await response.json();
 
     setIsSubmitting(false);
 
     if (!response.ok) {
-      notifyResult(Action.Update, "webhook", false, json.error?.message);
+      notifyResult(Action.Update, "webhook", false, json.message);
       return;
     }
-
-    notifyResult(Action.Update, "webhook", true);
     mutateWebhooks();
+    notifyResult(Action.Update, "webhook", true);
     setVisible(false);
     form.reset();
   };

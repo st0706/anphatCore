@@ -25,7 +25,7 @@ const Form = ({
     validate: {
       name: (val) => (val.length === 0 ? required("mô tả") : null),
       url: (val) => (val.length === 0 ? required("đường dẫn") : null),
-      eventTypes: (val) => (val.length < 1 ? required("loại sự kiện", "chọn ít nhất một") : null)
+      eventTypes: (val) => (val && val?.length < 1 ? required("loại sự kiện", "chọn ít nhất một") : null)
     }
   });
 

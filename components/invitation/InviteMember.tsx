@@ -73,7 +73,6 @@ const InviteMember = ({
             name="email"
             className="flex-grow"
             color={form.isTouched("email") && form.errors ? "error" : undefined}
-            placeholder="email@pacs.store"
             required
             {...form.getInputProps("email")}
           />

@@ -3,7 +3,6 @@ import { Button, Group, Modal, TextInput } from "@mantine/core";
 import type { Team } from "@prisma/client";
 import { useState } from "react";
 import { useSWRConfig } from "swr";
-import type { ApiResponse } from "types";
 import { CopyToClipboardButton } from "../shared";
 
 const NewAPIKey = ({ team, createModalVisible, setCreateModalVisible }: NewAPIKeyProps) => {
@@ -43,19 +42,14 @@ const CreateAPIKeyForm = ({ team, onNewAPIKey }: CreateAPIKeyFormProps) => {
       body: JSON.stringify({ name })
     });
 
-    const { data, error } = (await res.json()) as ApiResponse<{
-      apiKey: string;
-    }>;
-
+    const json = await res.json();
     setSubmitting(false);
 
-    if (error) {
-      notifyResult(Action.Create, "khóa API", false, error.message);
+    if (!res.ok) {
+      notifyResult(Action.Create, "khóa API", false, json.message);
       return;
-    }
-
-    if (data.apiKey) {
-      onNewAPIKey(data.apiKey);
+    } else {
+      onNewAPIKey(json.data);
       notifyResult(Action.Create, "khóa API", true);
     }
   };

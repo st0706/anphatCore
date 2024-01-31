@@ -7,6 +7,7 @@ import { throwIfNotAllowed } from "models/user";
 import { NextResponse } from "next/server";
 
 export async function DELETE(req: Request, { params }) {
+  const { apiKeyId } = params;
   try {
     if (!env.teamFeatures.apiKey) {
       throw new ApiError(404, "Không tìm thấy");
@@ -15,11 +16,8 @@ export async function DELETE(req: Request, { params }) {
     const teamMember = await throwIfNoTeamAccess(req, params.slug);
     throwIfNotAllowed(teamMember, "team_api_key", "delete");
 
-    const { searchParams } = new URL(req.url);
-    const apiKeyId = searchParams.get("apiKeyId");
     if (apiKeyId) {
       await deleteApiKey(apiKeyId);
-
       recordMetric("apikey.removed");
       return NextResponse.json({ data: {} }, { status: 200 });
     } else {

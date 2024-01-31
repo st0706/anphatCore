@@ -25,10 +25,7 @@ const PendingInvitations = ({ team }: { team: Team }) => {
 
   const deleteInvitation = async (invitation: Invitation | null) => {
     if (!invitation) return;
-
-    const sp = new URLSearchParams({ id: invitation.id });
-
-    const response = await fetch(`/api/teams/${team.slug}/invitations?${sp.toString()}`, {
+    const response = await fetch(`/api/teams/${team.slug}/invitations/${invitation.id}`, {
       method: "DELETE",
       headers: defaultHeaders
     });

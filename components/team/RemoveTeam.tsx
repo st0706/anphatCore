@@ -7,7 +7,6 @@ import { Button, Card, Group, Text } from "@mantine/core";
 import { Team } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import type { ApiResponse } from "types";
 
 const RemoveTeam = ({ team }: { team: Team }) => {
   const router = useRouter();
@@ -23,12 +22,12 @@ const RemoveTeam = ({ team }: { team: Team }) => {
       headers: defaultHeaders
     });
 
-    const json = (await response.json()) as ApiResponse;
+    const json = await response.json();
 
     setLoading(false);
 
     if (!response.ok) {
-      notifyResult(Action.Delete, "bệnh viện", false, json.error?.message);
+      notifyResult(Action.Delete, "bệnh viện", false, json.message);
       return;
     }
 

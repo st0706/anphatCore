@@ -3,7 +3,7 @@ import { defaultHeaders } from "@/lib/common";
 import type { Team } from "@prisma/client";
 import useWebhooks from "hooks/useWebhooks";
 import { useState } from "react";
-import type { ApiResponse, WebookFormSchema } from "types";
+import type { WebookFormSchema } from "types";
 import ModalForm from "./Form";
 
 const CreateWebhook = ({
@@ -28,12 +28,12 @@ const CreateWebhook = ({
       body: JSON.stringify(values)
     });
 
-    const json = (await response.json()) as ApiResponse<Team>;
+    const json = await response.json();
 
     setIsSubmitting(false);
 
     if (!response.ok) {
-      notifyResult(Action.Create, "webhook", false, json.error?.message);
+      notifyResult(Action.Create, "webhook", false, json.message);
       return;
     }
 

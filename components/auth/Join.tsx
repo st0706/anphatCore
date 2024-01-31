@@ -40,9 +40,6 @@ const Join = () => {
       })
     });
 
-    // const json = (await response.json()) as ApiResponse<
-    //   User & { confirmEmail: boolean }
-    // >;
     const json = await response.json();
 
     if (!response.ok) {

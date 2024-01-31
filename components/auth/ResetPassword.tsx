@@ -8,7 +8,6 @@ import { Button, Paper, PasswordInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import type { ApiResponse } from "types";
 
 const ResetPassword = ({ params }: { params: string }) => {
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -42,12 +41,12 @@ const ResetPassword = ({ params }: { params: string }) => {
       })
     });
 
-    const json = (await response.json()) as ApiResponse;
+    const json = await response.json();
 
     setSubmitting(false);
 
     if (!response.ok) {
-      notifyResult(Action.Update, "mật khẩu", false, json.error?.message);
+      notifyResult(Action.Update, "mật khẩu", false, json.message);
       form.reset();
       setSubmitting(false);
       return;

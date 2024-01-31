@@ -8,7 +8,6 @@ import { IconInfoCircle } from "@tabler/icons-react";
 import useWebhooks from "hooks/useWebhooks";
 import { useState } from "react";
 import type { EndpointOut } from "svix";
-import type { ApiResponse } from "types";
 import CreateWebhook from "./CreateWebhook";
 import EditWebhook from "./EditWebhook";
 
@@ -22,18 +21,15 @@ const Webhooks = ({ team }: { team: Team }) => {
 
   const deleteWebhook = async (webhook: EndpointOut | null) => {
     if (!webhook) return;
-
-    const sp = new URLSearchParams({ webhookId: webhook.id });
-
-    const response = await fetch(`/api/teams/${team.slug}/webhooks?${sp.toString()}`, {
+    const response = await fetch(`/api/teams/${team.slug}/webhooks/${webhook.id}`, {
       method: "DELETE",
       headers: defaultHeaders
     });
 
-    const json = (await response.json()) as ApiResponse;
+    const json = await response.json();
 
     if (!response.ok) {
-      notifyResult(Action.Delete, "webhook", false, json.error?.message);
+      notifyResult(Action.Delete, "webhook", false, json.message);
       return;
     }
 

@@ -39,13 +39,11 @@ export default function AuditLog({ slug, teamMember, auditLogToken, teamFeatures
       <TeamTab activeTab="audit-logs" team={team} teamFeatures={teamFeatures} />
       <Card radius="md" withBorder>
         <Card.Section>
-          {canAccess("team_audit_log", ["read"]) && auditLogToken && (
-            <RetracedEventsBrowser
-              host={`${retracedHost}/viewer/v1`}
-              auditLogToken={auditLogToken}
-              header="Nhật ký hoạt động"
-            />
-          )}
+          <RetracedEventsBrowser
+            host={`${retracedHost}/viewer/v1`}
+            auditLogToken={auditLogToken}
+            header="Nhật ký hoạt động"
+          />
         </Card.Section>
       </Card>
     </>

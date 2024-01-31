@@ -2,7 +2,6 @@ import useNotify, { Action } from "@/hooks/useNotify";
 import { defaultHeaders } from "@/lib/common";
 import { availableRoles } from "@/lib/permissions";
 import { Team, TeamMember } from "@prisma/client";
-import type { ApiResponse } from "types";
 
 interface UpdateMemberRoleProps {
   team: Team;
@@ -22,10 +21,10 @@ const UpdateMemberRole = ({ team, member }: UpdateMemberRoleProps) => {
       })
     });
 
-    const json = (await response.json()) as ApiResponse;
+    const json = await response.json();
 
     if (!response.ok) {
-      notifyResult(Action.Update, "vai trò thành viên", false, json.error?.message);
+      notifyResult(Action.Update, "vai trò thành viên", false, json.message);
       return;
     }
 

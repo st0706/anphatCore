@@ -37,7 +37,7 @@ const UpdateName = ({ user }: { user: User }) => {
     setIsSubmitting(false);
 
     if (!response.ok) {
-      notifyResult(Action.Update, "tên", false, json.error.message);
+      notifyResult(Action.Update, "tên", false, json.message);
       return;
     }
 

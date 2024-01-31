@@ -6,11 +6,9 @@ import { defaultHeaders } from "@/lib/common";
 import { invalid, required } from "@/lib/messages";
 import { Button, PasswordInput, Stack, TextInput } from "@mantine/core";
 import { isNotEmpty, useForm } from "@mantine/form";
-import type { User } from "@prisma/client";
 import useInvitation from "hooks/useInvitation";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import type { ApiResponse } from "types";
+import { useState } from "react";
 
 const JoinWithInvitation = ({ inviteToken }: { inviteToken: string }) => {
   const router = useRouter();
@@ -42,10 +40,10 @@ const JoinWithInvitation = ({ inviteToken }: { inviteToken: string }) => {
       })
     });
 
-    const json = (await response.json()) as ApiResponse<User>;
+    const json = await response.json();
 
     if (!response.ok) {
-      notify(json.error.message, Variant.Error);
+      notify(json.message, Variant.Error);
       form.reset();
       setIsSubmitting(false);
       return;

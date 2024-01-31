@@ -10,7 +10,6 @@ import type { ApiKey, Team } from "@prisma/client";
 import { IconInfoCircle } from "@tabler/icons-react";
 import { useState } from "react";
 import useSWR from "swr";
-import type { ApiResponse } from "types";
 import NewAPIKey from "./NewAPIKey";
 
 interface APIKeysProps {
@@ -33,14 +32,12 @@ const APIKeys = ({ team }: APIKeysProps) => {
       method: "DELETE"
     });
 
-    const { data, error } = (await res.json()) as ApiResponse<null>;
+    const json = await res.json();
 
-    if (error) {
-      notifyResult(Action.Delete, "khóa API", false, error.message);
+    if (!res.ok) {
+      notifyResult(Action.Delete, "khóa API", false, json.message);
       return;
-    }
-
-    if (data) {
+    } else {
       mutate();
       notifyResult(Action.Delete, "khóa API", true);
     }

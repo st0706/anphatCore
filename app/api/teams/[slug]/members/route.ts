@@ -37,8 +37,7 @@ export async function DELETE(req: Request, { params }) {
     const teamMember = await throwIfNoTeamAccess(req, params.slug);
     throwIfNotAllowed(teamMember, "team_member", "delete");
 
-    const { searchParams } = new URL(req.url);
-    const memberId = searchParams.get("memberId");
+    const { memberId } = params;
     if (memberId) {
       const teamMemberRemoved = await removeTeamMember(teamMember.teamId, memberId);
 

@@ -7,7 +7,6 @@ import { Button, Card, Flex, Group, Text } from "@mantine/core";
 import type { User } from "@prisma/client";
 import "@uploadthing/react/styles.css";
 import React, { useEffect, useState } from "react";
-import type { ApiResponse } from "types";
 import { LetterAvatar } from "../shared";
 
 const UploadAvatar = ({ user }: { user: User }) => {
@@ -29,11 +28,11 @@ const UploadAvatar = ({ user }: { user: User }) => {
       body: JSON.stringify({ image })
     });
 
-    const json = (await response.json()) as ApiResponse<User>;
+    const json = await response.json();
     setLoading(false);
 
     if (!response.ok) {
-      notifyResult(Action.Update, "ảnh đại diện", false, json.error.message);
+      notifyResult(Action.Update, "ảnh đại diện", false, json.message);
       return;
     }
     if (image) user.image = image;
