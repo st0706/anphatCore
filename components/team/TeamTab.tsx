@@ -22,23 +22,21 @@ interface TeamTabProps {
 const TeamTab = ({ activeTab, team, heading, teamFeatures }: TeamTabProps) => {
   const { canAccess } = useCanAccess();
 
-  if (canAccess("team_member", ["create", "update", "read", "delete"])) {
-    const navigations = [
-      {
-        name: "Thiết lập",
-        href: `/teams/${team.slug}/settings`,
-        active: activeTab === "settings",
-        icon: IconSettings
-      }
-    ];
-  }
-
-  if (canAccess("team_member", ["create", "update", "read", "delete"])) {
-    navigations.push({
+  const navigations = [
+    {
       name: "Thành viên",
       href: `/teams/${team.slug}/members`,
       active: activeTab === "members",
       icon: IconUsers
+    }
+  ];
+
+  if (canAccess("team_member", ["create", "update", "read", "delete"])) {
+    navigations.push({
+      name: "Thiết lập",
+      href: `/teams/${team.slug}/settings`,
+      active: activeTab === "settings",
+      icon: IconSettings
     });
   }
 
